@@ -4,7 +4,7 @@
 ## General settings
 ##
 
-: ${SUFFIX=}   # suffix for output files
+: ${SUFFIX=_disturbance}   # suffix for output files
 : ${OUTPUT=1}  # produce output?
 : ${TIME=1}    # produce timings?
 
@@ -29,7 +29,7 @@
 
 : ${T=100.0}               # time to simulate
 : ${K=101}                 # number of output points
-: ${P=200}                 # number of particles
+: ${P=128}                 # number of particles
 : ${DELTA=1.0}             # step size for random and discrete-time variables
 : ${H=1.0}                 # step size for ODE integrator
 : ${ATOLER=1.0e-3}         # absolute error tolerance for ODE integrator
@@ -58,8 +58,8 @@
 ## PMCMC settings
 ##
 
-: ${C=100}             # number of samples to draw
-: ${A=1000}               # centre of sigmoid for proposal adaptation
+: ${C=10000}             # number of samples to draw
+: ${A=10000000}               # centre of sigmoid for proposal adaptation
 : ${BETA=1.0e-3}          # decay of sigmoid for proposal adaptation
 : ${LAMBDA0=0}            # starting temperature for annealing
 : ${GAMMA=1.0e-2}         # exponential decay of temperature for annealing
@@ -74,7 +74,7 @@
 ## Likelihood settings
 ##
 
-: ${M=100}  # frequency with which to change samples
+: ${M=50}  # frequency with which to change samples
 
 ##
 ## Random number settings
@@ -86,4 +86,4 @@
 ## System settings
 ## 
 
-: ${OMP_NUM_THREADS=2}  # number of threads
+: ${OMP_NUM_THREADS=4}  # number of threads
