@@ -72,7 +72,7 @@ fi
 ## PMCMC settings
 ##
 
-: ${C=100}             # number of samples to draw
+: ${C=200000}             # number of samples to draw
 : ${A=10000000}               # centre of sigmoid for proposal adaptation
 : ${BETA=1.0e-3}          # decay of sigmoid for proposal adaptation
 : ${LAMBDA0=0}            # starting temperature for annealing
@@ -88,7 +88,7 @@ fi
 ## Likelihood settings
 ##
 
-: ${M=20}  # frequency with which to change samples
+: ${M=200}  # frequency with which to change samples
 
 ##
 ## Random number settings
