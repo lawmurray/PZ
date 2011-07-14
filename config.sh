@@ -4,7 +4,14 @@
 ## General settings
 ##
 
-: ${SUFFIX=_disturbance}   # suffix for output files
+# suffix for output files
+if [[ "$PBS_JOBNAME" != "" ]]
+then
+    : ${SUFFIX=_$PBS_JOBNAME}
+else
+    : ${SUFFIX=}
+fi
+
 : ${OUTPUT=1}  # produce output?
 : ${TIME=1}    # produce timings?
 
@@ -29,7 +36,7 @@
 
 : ${T=100.0}               # time to simulate
 : ${K=101}                 # number of output points
-: ${P=128}                 # number of particles
+: ${P=256}                 # number of particles
 : ${DELTA=1.0}             # step size for random and discrete-time variables
 : ${H=1.0}                 # step size for ODE integrator
 : ${ATOLER=1.0e-3}         # absolute error tolerance for ODE integrator
@@ -46,7 +53,14 @@
 ## Particle filter settings
 ##
 
-: ${FILTER=disturbance}      # filter method: bootstrap or auxiliary
+# filter method: bootstrap or auxiliary
+if [[ "$PBS_JOBNAME" != "" ]]
+then
+    : ${FILTER=$PBS_JOBNAME}
+else
+    : ${FILTER=bootstrap}      
+fi
+
 : ${RESAMPLER=stratified}  # resampling method
 : ${ESS_REL=1.0}           # minimum relative ESS to trigger resampling
 : ${SORT=1}                # sort weights before resampling
@@ -58,7 +72,7 @@
 ## PMCMC settings
 ##
 
-: ${C=10000}             # number of samples to draw
+: ${C=100}             # number of samples to draw
 : ${A=10000000}               # centre of sigmoid for proposal adaptation
 : ${BETA=1.0e-3}          # decay of sigmoid for proposal adaptation
 : ${LAMBDA0=0}            # starting temperature for annealing
@@ -74,7 +88,7 @@
 ## Likelihood settings
 ##
 
-: ${M=50}  # frequency with which to change samples
+: ${M=20}  # frequency with which to change samples
 
 ##
 ## Random number settings
