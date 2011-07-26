@@ -18,8 +18,8 @@ function plot_and_print ()
         h = figure(i);
         set (h, 'papertype', '<custom>');
         set (h, 'paperunits', 'inches');
-        set (h, 'papersize', [8.5 3]);
-        set (h, 'paperposition', [0,0,[8.5 3]]);
+        set (h, 'papersize', [8.5 4]);
+        set (h, 'paperposition', [0,0,[8.5 4]]);
         set (h, 'defaultaxesfontname', 'Helvetica')
         set (h, 'defaultaxesfontsize', 8)
         set (h, 'defaulttextfontname', 'Helvetica')
