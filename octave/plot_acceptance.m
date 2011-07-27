@@ -18,7 +18,7 @@ function plot_acceptance ()
     cax1 = [];
     
     % first drawing
-    for i = 1:length(model)
+    for i = 1:length(models)
         subplot(2,3,i);
         contour_model(models{i});
         ax1 = [ ax1; axis() ];
@@ -29,7 +29,7 @@ function plot_acceptance ()
     ax2 = [ min(ax1(:,1)) max(ax1(:,2)) min(ax1(:,3)) max(ax1(:,4)) ];
     cax2 = [ max(min(cax1(:,1)),0) min(max(cax1(:,2)),1) ];
     lvl2 = linspace(0, 1, 11);
-    for i = 1:length(model)
+    for i = 1:length(models)
         subplot(2,3,i);
         contour_model(models{i}, [], [0.28356237896608, 0.0969718952604018], ax2, lvl2);
         %surf_model(models{i}, ax2);
