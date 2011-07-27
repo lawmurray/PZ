@@ -9,9 +9,9 @@
 % Produce plot of acceptance rates for pz model.
 % @end deftypefn
 %
-function plot_acceptance ()
-    % load models from prepare_acceptance()
-    load model_acceptance.mat
+function plot_posterior ()
+    % load models from prepare_posterior()
+    load model_posterior.mat
     
     % common axes
     ax1 = [];
