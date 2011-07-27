@@ -33,7 +33,7 @@ function prepare_converge ()
     end
    
     % execute
-    Rp = parcellfun(C, @converge, ins, invars);
+    Rp = parcellfun(C, @converge, ins, invars, 'UniformOutput', 0);
     
     % save
     save -binary Rp.mat Rp

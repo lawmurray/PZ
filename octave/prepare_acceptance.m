@@ -33,9 +33,10 @@ function prepare_acceptance ()
     end
 
     % construct and krig models
-    models = parcellfun(C, @model_acceptance, files, invars, coords, Ms);
-    models = parcellfun(C, @krig_model, models, iters);
+    models = parcellfun(4, @model_acceptance, files, invars, coords, Ms, ...
+        'UniformOutput', 0);
+    models = parcellfun(4, @krig_model, models, iters, 'UniformOutput', 0);
     
     % save
-    save -binary model_acceptance.mat model
+    save -binary model_acceptance.mat models
 end
