@@ -12,20 +12,29 @@
 %
 function prepare_converge ()
     experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf'};
-    invars = {'EPg', 'VPg'};
-    
+    invars1 = {'EPg', 'VPg'};
+
+    % construct arguments for parallel execution
     C = length(experiments);
     Rp = cell(C,1);
+    ins = cell(C,1);
+    invars = cell(C,1);
     for i = 1:C
-        experiment = experiments{i};
-        ins = cell(16,1);
-        for j = 1:length(ins)
-            ins{j} = sprintf('results/mcmc_%s-%d.nc.%d', experiment, ...
-                 fix((j - 1)/2), j - 1);
+        j = 1;
+        file = sprintf('results/mcmc_%s-%d.nc.%d', experiments{i}, ...
+            fix((j - 1)/2), j - 1);
+        while exist(file, 'file')
+            ins{i}{j} = file;
+            j = j + 1;
+            file = sprintf('results/mcmc_%s-%d.nc.%d', experiments{i}, ...
+                fix((j - 1)/2), j - 1);
         end
-        Rp{i} = converge(ins, invars);
-        save Rp.mat Rp
+        invars{i} = invars1;
     end
+   
+    % execute
+    Rp = parcellfun(C, @converge, ins, invars);
     
-    save Rp.mat Rp
+    % save
+    save Rp.mat Rp ins invars
 end
