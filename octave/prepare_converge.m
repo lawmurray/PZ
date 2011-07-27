@@ -6,13 +6,13 @@
 % -*- texinfo -*-
 % @deftypefn {Function File} prepare_converge ()
 %
-% Compute $\hat{R}^p$ statistics for PZ model runs.
+% Compute $\hat{R}^p$ statistics (Brooks & Gelman 1998) for PZ model runs.
 %
 % @end deftypefn
 %
 function prepare_converge ()
     experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf'};
-    invars1 = {'EPg', 'VPg'};
+    invar = {'EPg', 'VPg'};
 
     % construct arguments for parallel execution
     C = length(experiments);
@@ -29,12 +29,12 @@ function prepare_converge ()
             file = sprintf('results/mcmc_%s-%d.nc.%d', experiments{i}, ...
                 fix((j - 1)/2), j - 1);
         end
-        invars{i} = invars1;
+        invars{i} = invar;
     end
    
     % execute
     Rp = parcellfun(C, @converge, ins, invars);
     
     % save
-    save Rp.mat Rp ins invars
+    save -binary Rp.mat Rp
 end
