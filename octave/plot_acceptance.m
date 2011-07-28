@@ -12,6 +12,8 @@
 function plot_acceptance ()
     % load models from prepare_acceptance()
     load model_acceptance.mat
+    models{11} = models{3};
+    models{12} = models{6};
     
     % common axes
     ax1 = [];
@@ -19,7 +21,7 @@ function plot_acceptance ()
     
     % first drawing
     for i = 1:length(models)
-        subplot(2,3,i);
+        subplot(2,6,i);
         contour_model(models{i});
         ax1 = [ ax1; axis() ];
         cax1 = [ cax1; caxis() ];
@@ -30,7 +32,7 @@ function plot_acceptance ()
     cax2 = [ max(min(cax1(:,1)),0) min(max(cax1(:,2)),1) ];
     lvl2 = linspace(0, 1, 11);
     for i = 1:length(models)
-        subplot(2,3,i);
+        subplot(2,6,i);
         contour_model(models{i}, [], [0.28356237896608, 0.0969718952604018], ax2, lvl2);
         %surf_model(models{i}, ax2);
         plot_defaults;

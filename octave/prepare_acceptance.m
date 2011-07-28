@@ -36,7 +36,6 @@ function prepare_acceptance ()
     % construct and krig models
     models = cellfun(@model_acceptance, files, invars, coords, Ms, ...
         'UniformOutput', 0);
-    save -binary model_acceptance.mat models
     models = cellfun(@krig_model, models, iters, 'UniformOutput', 0);
     
     % save
