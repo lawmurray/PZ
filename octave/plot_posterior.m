@@ -19,7 +19,7 @@ function plot_posterior ()
     
     % first drawing
     for i = 1:length(models)
-        subplot(2,3,i);
+        subplot(2,6,i);
         contour_model(models{i});
         ax1 = [ ax1; axis() ];
         cax1 = [ cax1; caxis() ];
@@ -30,7 +30,7 @@ function plot_posterior ()
     cax2 = [ min(cax1(:,1)) max(cax1(:,2)) ];
     lvl2 = linspace(cax2(1), cax2(2), 11);
     for i = 1:length(models)
-        subplot(2,3,i);
+        subplot(2,6,i);
         contour_model(models{i}, [], [], ax2, lvl2);
         %surf_model(models{i}, ax2);
         plot_defaults;
