@@ -11,7 +11,8 @@
 %
 function prepare_acceptance ()
     experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf', ...
-        'pf-pmatch', 'apf-pmatch', 'mupf-pmatch', 'amupf-pmatch'};
+        'pf-pmatch', 'mupf-pmatch', 'cupf', 'apf-pmatch', 'amupf-pmatch', ...
+        'acupf'};
     invar = {'EPg', 'VPg'};
     M = 200;
     iter = 1000;
@@ -33,9 +34,10 @@ function prepare_acceptance ()
     end
 
     % construct and krig models
-    models = parcellfun(4, @model_acceptance, files, invars, coords, Ms, ...
+    models = cellfun(@model_acceptance, files, invars, coords, Ms, ...
         'UniformOutput', 0);
-    models = parcellfun(4, @krig_model, models, iters, 'UniformOutput', 0);
+    save -binary model_acceptance.mat models
+    models = cellfun(@krig_model, models, iters, 'UniformOutput', 0);
     
     % save
     save -binary model_acceptance.mat models

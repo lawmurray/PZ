@@ -29,9 +29,9 @@ function prepare_posterior ()
     end
 
     % construct and kernel density estimate models
-    models = parcellfun(2, @model_posterior, files, invars, coords, rangs, ...
+    models = cellfun(@model_posterior, files, invars, coords, rangs, ...
         'UniformOutput', 0);
-    models = parcellfun(2, @kde_model, models, 'UniformOutput', 0);
+    models = cellfun(@kde_model, models, 'UniformOutput', 0);
 
     % save
     save -binary 'model_posterior.mat' models
