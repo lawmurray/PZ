@@ -22,7 +22,7 @@ fi
 : ${DATA_DIR=data}        # directory containing data files
 : ${RESULTS_DIR=results}  # directory to contain result files
 
-: ${INIT_FILENAME=}   # init file
+: ${INIT_FILENAME=likelihood_init.nc}   # init file
 : ${FORCE_FILENAME=}  # forcings file
 : ${OBS_FILENAME=obs.nc}    # observations file
 
@@ -36,7 +36,6 @@ fi
 
 : ${T=100.0}               # time to simulate
 : ${K=101}                 # number of output points
-
 
 if [[ `expr match "$PBS_JOBNAME" "^pf-pmatch"` > 0 || `expr match "$PBS_JOBNAME" "^mupf-pmatch"` > 0 ]]
 then
@@ -64,7 +63,7 @@ fi
 ## Particle filter settings
 ##
 
-# filter method: bootstrap or auxiliary
+# filter method
 if [[ "$PBS_JOBNAME" != "" ]]
 then
     : ${FILTER=$PBS_JOBNAME}
@@ -91,7 +90,7 @@ fi
 ## PMCMC settings
 ##
 
-: ${C=100}             # number of samples to draw
+: ${C=204800}             # number of samples to draw
 : ${A=10000000}               # centre of sigmoid for proposal adaptation
 : ${BETA=1.0e-3}          # decay of sigmoid for proposal adaptation
 : ${LAMBDA0=0}            # starting temperature for annealing
@@ -107,7 +106,7 @@ fi
 ## Likelihood settings
 ##
 
-: ${M=10}  # frequency with which to change samples
+: ${M=200}  # frequency with which to change samples
 
 ##
 ## Random number settings
