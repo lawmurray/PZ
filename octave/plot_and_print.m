@@ -18,8 +18,8 @@ function plot_and_print ()
         h = figure(i);
         set (h, 'papertype', '<custom>');
         set (h, 'paperunits', 'inches');
-        set (h, 'papersize', [8.5 3]);
-        set (h, 'paperposition', [0,0,[8.5 3]]);
+        set (h, 'papersize', [8.5 4.5]);
+        set (h, 'paperposition', [0,0,[8.5 4.5]]);
         set (h, 'defaultaxesfontname', 'Helvetica')
         set (h, 'defaultaxesfontsize', 8)
         set (h, 'defaulttextfontname', 'Helvetica')
@@ -29,10 +29,19 @@ function plot_and_print ()
     
     % plot
     figure(1);
-    plot_acceptance();
+    plot_acceptance(0);
+    figure(2);
+    plot_acceptance(1);
     
     % print
-    file = sprintf('%s/pz_acceptance.pdf', FIG_DIR);
-    saveas(figure(1), file);
-    system(sprintf('pdfcrop %s %s', file, file));
+    files = {
+        'pz_acceptance';
+        'pz_acceptance_pmatch';
+        };
+    
+    for i = 1:2
+        file = sprintf('%s/%s.pdf', FIG_DIR, files{i});
+        saveas(figure(i), file);
+        system(sprintf('pdfcrop %s %s', file, file));
+    end
 end
