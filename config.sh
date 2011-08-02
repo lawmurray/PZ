@@ -36,7 +36,18 @@ fi
 
 : ${T=100.0}               # time to simulate
 : ${K=101}                 # number of output points
-: ${P=256}                 # number of particles
+
+
+if [[ `expr match "$PBS_JOBNAME" "^pf-pmatch"` > 0 || `expr match "$PBS_JOBNAME" "^mupf-pmatch"` > 0 ]]
+then
+: ${P=384}
+elif [[ `expr match "$PBS_JOBNAME" "^apf-pmatch"` > 0 || `expr match "$PBS_JOBNAME" "^amupf-pmatch"` > 0 ]]
+then
+: ${P=192}
+else
+: ${P=64}
+fi
+
 : ${DELTA=1.0}             # step size for random and discrete-time variables
 : ${H=1.0}                 # step size for ODE integrator
 : ${ATOLER=1.0e-3}         # absolute error tolerance for ODE integrator
@@ -58,7 +69,7 @@ if [[ "$PBS_JOBNAME" != "" ]]
 then
     : ${FILTER=$PBS_JOBNAME}
 else
-    : ${FILTER=bootstrap}      
+    : ${FILTER=cupf}      
 fi
 
 : ${RESAMPLER=stratified}  # resampling method
@@ -69,16 +80,24 @@ fi
 : ${SHRINK=1}              # apply shrinkage to kernel densities?
 
 ##
+## Unscented Kalman filter settings
+##
+
+: ${UT_ALPHA=1.0e-3}  # alpha param for scaled unscented transformation
+: ${UT_BETA=2.0}      # beta param for scaled unscented transformation
+: ${UT_KAPPA=0.0}     # kappa param for scaled unscented transformation
+
+##
 ## PMCMC settings
 ##
 
-: ${C=200000}             # number of samples to draw
+: ${C=100}             # number of samples to draw
 : ${A=10000000}               # centre of sigmoid for proposal adaptation
 : ${BETA=1.0e-3}          # decay of sigmoid for proposal adaptation
 : ${LAMBDA0=0}            # starting temperature for annealing
 : ${GAMMA=1.0e-2}         # exponential decay of temperature for annealing
 : ${S1=0.0}               # proposal covariance scaling (0 for default)
-: ${S2=1.0}               # starting covariance scaling
+: ${S2=0.18}               # starting covariance scaling
 : ${PROPOSAL_TYPE=prior}  # proposal distribution type: file, prior, ukf, urts, pf, pfs or kfb
 : ${STARTING_TYPE=prior}  # starting distribution type: file, prior, ukf, urts, pf, pfs or kfb
 : ${ADAPT=1}              # adapt proposal distribution?
@@ -88,7 +107,7 @@ fi
 ## Likelihood settings
 ##
 
-: ${M=200}  # frequency with which to change samples
+: ${M=10}  # frequency with which to change samples
 
 ##
 ## Random number settings
