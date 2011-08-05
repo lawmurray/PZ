@@ -13,27 +13,26 @@
 function prepare_converge ()
     experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf'};
     invar = {'EPg', 'VPg'};
+    coord = [];
+    rang = [21:20:50000];
 
     % construct arguments for parallel execution
     C = length(experiments);
     Rp = cell(C,1);
     ins = cell(C,1);
     invars = cell(C,1);
+    coords = cell(C,1);
+    rangs = cell(C,1);
     for i = 1:C
-        j = 1;
-        file = sprintf('results/mcmc_%s-%d.nc.%d', experiments{i}, ...
-            fix((j - 1)/2), j - 1);
-        while exist(file, 'file')
-            ins{i}{j} = file;
-            j = j + 1;
-            file = sprintf('results/mcmc_%s-%d.nc.%d', experiments{i}, ...
-                fix((j - 1)/2), j - 1);
-        end
+        ins{i} = glob(sprintf('results/mcmc_%s*.nc.*', experiments{i}));
         invars{i} = invar;
+        coords{i} = coord;
+        rangs{i} = rang;
     end
    
     % execute
-    Rp = parcellfun(C, @converge, ins, invars, 'UniformOutput', 0);
+    Rp = parcellfun(C, @converge, ins, invars, coords, rangs, ...
+        'UniformOutput', 0);
     
     % save
     save -binary Rp.mat Rp

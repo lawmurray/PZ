@@ -12,7 +12,7 @@
 function prepare_posterior ()
     experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf'};
     invar = {'EPg', 'VPg'};
-    rang = [100001:100:200000];
+    rang = [25001:250:50000];
     
     % construct arguments for parallel execution
     C = length(experiments);
@@ -21,8 +21,7 @@ function prepare_posterior ()
     coords = cell(C,1);
     rangs = cell(C,1);
     for i = 1:length(experiments)
-        file = sprintf('results/mcmc_%s-26.nc.106', experiments{i});
-        files{i} = file;
+        files{i} = glob(sprintf('results/mcmc_%s*.nc.*', experiments{i}));
         invars{i} = invar;
         coords{i} = [];
         rangs{i} = rang;
