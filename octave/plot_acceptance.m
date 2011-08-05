@@ -73,7 +73,7 @@ function plot_acceptance (pmatch)
     lvl2 = linspace(0, 1, 11);
     for i = first:last
         subplot(2,3,i - first + 1);
-        contour_model(amodels{i}, [], [0.2836, 0.0970], ax2, lvl2);
+        contour_model(amodels{i}, [], [0.29032, 0.10938], ax2, lvl2);
         hold on;
         contour_model(models{mod(i - 1, length(pmodels)) + 1});
         %surf_model(models{i}, ax2);

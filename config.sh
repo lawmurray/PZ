@@ -22,7 +22,7 @@ fi
 : ${DATA_DIR=data}        # directory containing data files
 : ${RESULTS_DIR=results}  # directory to contain result files
 
-: ${INIT_FILENAME=likelihood_init.nc}   # init file
+: ${INIT_FILENAME=init.nc}   # init file
 : ${FORCE_FILENAME=}  # forcings file
 : ${OBS_FILENAME=obs.nc}    # observations file
 
@@ -34,15 +34,21 @@ fi
 ## Simulation settings
 ##
 
-: ${T=100.0}               # time to simulate
+: ${T=100}               # time to simulate
 : ${K=101}                 # number of output points
 
-if [[ `expr match "$PBS_JOBNAME" "^pf-pmatch"` > 0 || `expr match "$PBS_JOBNAME" "^mupf-pmatch"` > 0 ]]
+if [[ `expr match "$PBS_JOBNAME" "^pf-pmatch"` > 0 ]]
 then
 : ${P=384}
-elif [[ `expr match "$PBS_JOBNAME" "^apf-pmatch"` > 0 || `expr match "$PBS_JOBNAME" "^amupf-pmatch"` > 0 ]]
+elif [[ `expr match "$PBS_JOBNAME" "^mupf-pmatch"` > 0 ]]
+then
+: ${P=376}
+elif [[ `expr match "$PBS_JOBNAME" "^apf-pmatch"` > 0 ]]
 then
 : ${P=192}
+elif [[ `expr match "$PBS_JOBNAME" "^amupf-pmatch"` > 0 ]]
+then
+: ${P=184}
 else
 : ${P=64}
 fi
@@ -72,7 +78,7 @@ else
 fi
 
 : ${RESAMPLER=stratified}  # resampling method
-: ${ESS_REL=1.0}           # minimum relative ESS to trigger resampling
+: ${ESS_REL=0.5}           # minimum relative ESS to trigger resampling
 : ${SORT=1}                # sort weights before resampling
 : ${B_ABS=0.0}             # absolute kernel bandwidth (0 to use B_REL instead)
 : ${B_REL=1.0}             # relative kernel bandwidth
@@ -97,9 +103,9 @@ fi
 : ${GAMMA=1.0e-2}         # exponential decay of temperature for annealing
 : ${S1=0.0}               # proposal covariance scaling (0 for default)
 : ${S2=0.18}               # starting covariance scaling
-: ${PROPOSAL_TYPE=prior}  # proposal distribution type: file, prior, ukf, urts, pf, pfs or kfb
-: ${STARTING_TYPE=prior}  # starting distribution type: file, prior, ukf, urts, pf, pfs or kfb
-: ${ADAPT=1}              # adapt proposal distribution?
+: ${PROPOSAL_TYPE=file}  # proposal distribution type: file, prior, ukf, urts, pf, pfs or kfb
+: ${STARTING_TYPE=file}  # starting distribution type: file, prior, ukf, urts, pf, pfs or kfb
+: ${ADAPT=0}              # adapt proposal distribution?
 : ${INCLUDE_INITIAL=0}    # include initial conditions in MCMC rather than filter?
 
 ##
@@ -112,7 +118,7 @@ fi
 ## Random number settings
 ##
 
-: ${SEED=0}  # pseudorandom number seed
+: ${SEED=34598}  # pseudorandom number seed
 
 ##
 ## System settings
