@@ -43,40 +43,48 @@ function plot_converge (pmatch)
         last = 6;
     end
 
-    meanfunc = 'meanConst'; hyp.mean = 1;
-    covfunc = 'covSEiso'; ell = 1000; sf = 1; hyp.cov = log([ell; sf]);
-    likfunc = 'likGauss'; sn = 0.1; hyp.lik = log(sn);
-
+    markers = '.+*ox^';
     hold off;
     x = [21:20:50000]';
+    colour = [
+        0 0 0;
+        gray()(32,:);
+        watercolour(2);
+        0 0 0;
+        gray()(32,:);
+        watercolour(2) ];
+    
+    % start with empty plots to get correct legend
     for i = first:last
+        j = mod(i - 1, 6) + 1;
+        fmt = sprintf('--%c', markers(j));
         y = Rp{i};
-        
-        %x1 = x(1:10:end);
-        %y1 = y(1:10:end);
-        
-        %hyp1 = hyp;
-        %hyp1.mean = mean(y);
-        %hyp1 = minimize(hyp1, @gp, -1000, @infExact, meanfunc, covfunc, ...
-        %    likfunc, x1, y1);
-        %[m s2] = gp(hyp1, @infExact, meanfunc, covfunc, likfunc, x1, y1,
-        %x);
-        
-        % seems to give very different answers depending on degree
-        %[alpha,c,rms] = expfit(2, 21, 20, y - 1);
-        %m = zeros(size(x));
-        %for j = 1:2
-        %    m += c(j)*exp(alpha(j)*x);
-        %end
-        %m += 1;
-        
-        m = y;
-        plot(x, m, 'color', watercolour(mod(i - 1, 6) + 1), 'linewidth', 3);
+        plot(x(1), y(1), fmt, 'color', colour(j,:), 'linewidth', 3, ...
+             'markersize', 4, 'markerfacecolor', colour(j,:));
         hold on;
     end
+    
+    % plot lines only
+    for i = first:last
+        j = mod(i - 1, 6) + 1;
+        y = Rp{i};
+        plot(x, y, '--', 'color', colour(j,:), 'linewidth', 3);
+    end
+
+    % plot subset of points lines only
+    for i = first:last
+        j = mod(i - 1, 6) + 1;
+        fmt = sprintf('%c', markers(j));
+        y = Rp{i};
+        plot(x(1:50:end), y(1:50:end), 'color', colour(j,:), fmt, ...
+             'linewidth', 3, 'markersize', 4, 'markerfacecolor', ...
+             colour(j,:));
+    end
+   
     plot_defaults;
-    ylabel('{\hat{R}^p}');
+    %ylabel('{R^p}');
     xlabel('Step');
     legend(titles);
     axis([0 20000 1 1.05]);
+    set(gca, 'interpreter', 'latex');
 end
