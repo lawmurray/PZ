@@ -11,15 +11,13 @@
 %
 function plot_state ()
     MCMC_FILE = 'results/mcmc_pf.nc.0';
-    SIMULATE_FILE = 'results/simulate.nc.0';
+    SIMULATE_FILE = 'results/simulate.nc.0'; % for prior
     OBS_FILE = 'data/obs.nc';
-    p = 295; % index of observation trajectory in simulate file
     ps = [25000:50000];
     ts = [1:101];
     ns = 2;
     
     nco = netcdf(OBS_FILE, 'r');
-    ncs = netcdf(SIMULATE_FILE, 'r');
     
     titles = {
         '';
@@ -35,7 +33,7 @@ function plot_state ()
     hold on;
     plot_mcmc(MCMC_FILE, 'P', [], ps);
     %plot_traj(SIMULATE_FILE, 'P', [], p, ts);
-    x = read_var (ncs, 'P', [], p, ts);
+    x = read_var (nco, 'P', [], 1, ts);
     [t y] = read_obs (nco, 'P_obs', [], ts, ns);
     plot_obs(OBS_FILE, 'P_obs', [], ts, ns);
     plot(t, x, '.k', 'markersize', 5);
@@ -52,8 +50,7 @@ function plot_state ()
     plot_simulate(SIMULATE_FILE, 'Z', [], [], ts);
     hold on;
     plot_mcmc(MCMC_FILE, 'Z', [], ps);
-    %plot_traj(SIMULATE_FILE, 'Z', [], p, ts);
-    x = read_var (ncs, 'Z', [], p, ts);
+    x = read_var (nco, 'Z', [], 1, ts);
     plot(t, x, '.k', 'markersize', 5);
     hold off;
     plot_defaults;
@@ -64,8 +61,7 @@ function plot_state ()
     plot_simulate(SIMULATE_FILE, 'rPg', [], [], ts);
     hold on;
     plot_mcmc(MCMC_FILE, 'rPg', [], ps);
-    %plot_traj(SIMULATE_FILE, 'rPg', [], p, ts);
-    x = read_var (ncs, 'rPg', [], p, ts);
+    x = read_var (nco, 'rPg', [], 1, ts);
     plot(t, x, '.k', 'markersize', 5);
     hold off;
     plot_defaults;
