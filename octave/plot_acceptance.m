@@ -53,7 +53,7 @@ function plot_acceptance (pmatch)
     end
     
     % use grey
-    colormap(flipud(gray));
+    colormap(flipud(gray()(16:end,:)));
     
     % common axes
     ax1 = [];
@@ -73,8 +73,9 @@ function plot_acceptance (pmatch)
     lvl2 = linspace(0, 1, 11);
     for i = first:last
         subplot(2,3,i - first + 1);
-        contour_model(amodels{i}, [], [0.29032, 0.10938], ax2, lvl2);
+        contour_model(amodels{i}, [], [], ax2, lvl2);
         hold on;
+        plot(0.29032, 0.10938, '.k', 'markersize', 10);
         contour_model(pmodels{i});
         %surf_model(models{i}, ax2);
         plot_defaults;

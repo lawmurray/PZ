@@ -6,11 +6,11 @@
 % -*- texinfo -*-
 % @deftypefn {Function File} plot_acceptance ()
 %
-% Produce plot of acceptance rates for pz model.
+% Produce plot of state posteriors for PZ model.
 % @end deftypefn
 %
 function plot_state ()
-    MCMC_FILE = 'results/mcmc_pf.nc.0';
+    MCMC_FILE = 'results/mcmc_acupf.nc.0';
     SIMULATE_FILE = 'results/simulate.nc.0'; % for prior
     OBS_FILE = 'data/obs.nc';
     ps = [25000:50000];
@@ -28,7 +28,7 @@ function plot_state ()
         'Truth';
         };
     
-    subplot(3,1,1);
+    subplot(1,2,2);
     plot_simulate(SIMULATE_FILE, 'P', [], [], ts);
     hold on;
     plot_mcmc(MCMC_FILE, 'P', [], ps);
@@ -42,11 +42,11 @@ function plot_state ()
     end
     hold off;
     plot_defaults;
-    axis([0 100 0 8]);
+    axis([0 100 0 7]);
     ylabel('P');
     legend(titles);
     
-    subplot(3,1,2);
+    subplot(2,2,1);
     plot_simulate(SIMULATE_FILE, 'Z', [], [], ts);
     hold on;
     plot_mcmc(MCMC_FILE, 'Z', [], ps);
@@ -54,10 +54,10 @@ function plot_state ()
     plot(t, x, '.k', 'markersize', 5);
     hold off;
     plot_defaults;
-    axis([0 100 0 3]);
+    axis([0 100 0.25 2.75]);
     ylabel('Z');
 
-    subplot(3,1,3);
+    subplot(2,2,3);
     plot_simulate(SIMULATE_FILE, 'rPg', [], [], ts);
     hold on;
     plot_mcmc(MCMC_FILE, 'rPg', [], ps);

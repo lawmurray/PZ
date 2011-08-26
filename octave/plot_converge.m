@@ -85,6 +85,6 @@ function plot_converge (pmatch)
     %ylabel('{R^p}');
     xlabel('Step');
     legend(titles);
-    axis([0 20000 1 1.05]);
-    set(gca, 'interpreter', 'latex');
+    axis([0 20000 1 1.03]);
+    set(gca, 'interpreter', 'tex');
 end
