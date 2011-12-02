@@ -10,7 +10,8 @@
 % @end deftypefn
 %
 function prepare_acceptance ()
-    experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf', ...
+    experiments = {'pf'};
+experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf', ...
         'pf-pmatch', 'mupf-pmatch', 'cupf', 'apf-pmatch', 'amupf-pmatch', ...
         'acupf'};
     invar = {'EPg', 'VPg'};

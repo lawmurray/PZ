@@ -11,7 +11,8 @@
 % @end deftypefn
 %
 function prepare_converge ()
-    experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf'};
+    experiments = {'pf', 'mupf', 'cupf', 'apf', 'amupf', 'acupf', 'pf-pmatch', ...
+                  'mupf-pmatch', 'cupf', 'apf-pmatch', 'amupf-pmatch', 'acupf'};
     invar = {'EPg', 'VPg'};
     coord = [];
     rang = [21:20:50000];
@@ -24,7 +25,7 @@ function prepare_converge ()
     coords = cell(C,1);
     rangs = cell(C,1);
     for i = 1:C
-        ins{i} = glob(sprintf('results/mcmc_%s*.nc.*', experiments{i}));
+        ins{i} = glob(sprintf('results/mcmc_%s-[0-9]*.nc.*', experiments{i}));
         invars{i} = invar;
         coords{i} = coord;
         rangs{i} = rang;

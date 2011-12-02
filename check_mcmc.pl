@@ -8,9 +8,10 @@
 ## $Rev$ $Date$
 ##
 
+chdir '/home/mur387/sandbox_pz/pz';
 $RESULTS_DIR = 'results';
-@EXPS = ('pf', 'apf', 'mupf', 'amupf', 'cupf', 'pf-pmatch', 'apf-pmatch');
-$M = 64;
+@EXPS = ('pf', 'apf', 'mupf', 'amupf', 'cupf', 'acupf', 'pf-pmatch', 'apf-pmatch', 'mupf-pmatch', 'amupf-pmatch');
+$M = 256;
 
 foreach $exp (@EXPS) {
     @t = ();
