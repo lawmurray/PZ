@@ -43,6 +43,7 @@ function plot_state ()
     hold off;
     plot_defaults;
     axis([0 100 0 7]);
+    xlabel('t');
     ylabel('P');
     legend(titles);
     
