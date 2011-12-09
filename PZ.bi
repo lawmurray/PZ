@@ -1,5 +1,5 @@
 /**
- * Lotka-Volterra phytoplankton-zooplankton (PZ) model.
+ * Lotka-Volterra-like phytoplankton-zooplankton (PZ) model.
  * 
  * @author Lawrence Murray <lawrence.murray@csiro.au>
  * $Rev$
