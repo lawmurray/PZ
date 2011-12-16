@@ -26,7 +26,7 @@ model PZ {
     Z ~ log_normal(2.0, 0.1)
   }
 
-  sub transition {
+  sub transition(delta = 1.0) {
     do {
       alpha ~ normal(mu, sigma)
     } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
