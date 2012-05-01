@@ -16,7 +16,7 @@ model PZ {
   noise alpha        // stochastic phytoplankton growth rate
   obs P_obs          // observations of phytoplankton
   
-  sub prior {
+  sub parameter {
     EPg ~ uniform(0.0, 1.0)
     VPg ~ uniform(0.0, 0.5)
   }
