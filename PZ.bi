@@ -35,6 +35,15 @@ model PZ {
     }
   }
 
+  sub lookahead_transition {
+    do {
+      alpha <- 0
+    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk4') {
+      P <- ode(alpha*P - c*P*Z)
+      Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
+    }
+  }
+
   sub observation {
     P_obs ~ log_normal(log(P), 0.2)
   }
