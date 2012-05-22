@@ -28,8 +28,8 @@ model PZ {
 
   sub transition(delta = 1.0) {
     do {
-      alpha ~ normal(EPg, VPg)
-    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk4') {
+      alpha ~ gaussian(EPg, VPg)
+    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
       P <- ode(alpha*P - c*P*Z)
       Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
     }
@@ -38,7 +38,7 @@ model PZ {
   sub lookahead_transition {
     do {
       alpha <- 0
-    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk4') {
+    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
       P <- ode(alpha*P - c*P*Z)
       Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
     }
