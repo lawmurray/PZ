@@ -21,6 +21,11 @@ model PZ {
     VPg ~ uniform(0.0, 0.5)
   }
   
+  sub proposal_parameter {
+    EPg ~ gaussian(EPg, 0.02);
+    VPg ~ gaussian(VPg, 0.01);
+  }
+
   sub initial {
     P ~ log_normal(log(2.0), 0.2)
     Z ~ log_normal(log(2.0), 0.1)
@@ -38,7 +43,7 @@ model PZ {
   sub lookahead_transition {
     do {
       alpha <- 0
-    } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
+    } then ode(atoler = 1.0e-6, rtoler = 1.0e-3, alg = 'dopri5') {
       P <- ode(alpha*P - c*P*Z)
       Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
     }
