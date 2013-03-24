@@ -35,8 +35,8 @@ model PZ {
     do {
       alpha ~ gaussian(EPg, VPg)
     } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
-      P <- ode(alpha*P - c*P*Z)
-      Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
+      dP/dt = alpha*P - c*P*Z
+      dZ/dt = e*c*P*Z - m_l*Z - m_q*Z*Z
     }
   }
 
@@ -44,12 +44,14 @@ model PZ {
     do {
       alpha <- 0
     } then ode(atoler = 1.0e-3, rtoler = 1.0e-3, alg = 'rk43') {
-      P <- ode(alpha*P - c*P*Z)
-      Z <- ode(e*c*P*Z - m_l*Z - m_q*Z*Z)
+      dP/dt = alpha*P - c*P*Z
+      dZ/dt = e*c*P*Z - m_l*Z - m_q*Z*Z
     }
   }
 
   sub observation {
     P_obs ~ log_normal(log(P), 0.2)
+    //P_obs ~ normal(P, 0.5);
+    //P_obs ~ exp(-0.5*pow((P_obs - P)/0.5, 2))
   }
 }
