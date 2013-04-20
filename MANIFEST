@@ -8,3 +8,7 @@ run.sh
 PZ.bi
 data
 results
+filter.conf
+prior.conf
+posterior.conf
+optimise.conf
