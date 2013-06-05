@@ -5,5 +5,4 @@ email: lawrence.murray@csiro.au
 website-url: http://www.github.com/lawmurray/PZ
 download-url: http://www.github.com/lawmurray/PZ
 github-url: http://www.github.com/lawmurray/PZ
-description: Lotka-Volterra-like predator-prey model of the interaction of
-phytoplankton and zooplankton.
+description: Lotka-Volterra-like model of the interaction of phytoplankton (prey) and zooplankton (predator).
