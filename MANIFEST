@@ -14,4 +14,4 @@ prior.conf
 data/init.nc
 data/obs.nc
 oct/prepare_init.m
-oct/plot_state.m
+oct/plot_states.m
