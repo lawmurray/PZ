@@ -1,5 +1,0 @@
-#Wed Apr 22 15:56:22 WST 2009
-content-types/enabled=false
-content-types/org.eclipse.cdt.core.cxxHeader/file-names=.cuh
-content-types/org.eclipse.cdt.core.cxxSource/file-names=.cu
-eclipse.preferences.version=1
