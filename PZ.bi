@@ -22,8 +22,8 @@ model PZ {
   }
   
   sub proposal_parameter {
-    mu ~ gaussian(mu, 0.02);
-    sigma ~ gaussian(sigma, 0.01);
+    mu ~ truncated_gaussian(mu, 0.02, 0.0, 1.0);
+    sigma ~ truncated_gaussian(sigma, 0.01, 0.0, 0.5);
   }
 
   sub initial {
